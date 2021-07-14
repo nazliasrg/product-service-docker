@@ -1,0 +1,35 @@
+version: "3.5"
+services:
+  product-service:
+    container_name: product-service
+    image: nzlvrsrg/product-service:0.0.1
+    depends_on:
+      - product-db
+    restart: always
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    environment:
+      DB_URL: jdbc:mysql://product-db:3306/product_db
+      DB_USERNAME: root
+      DB_PASSWORD: password
+      KAFKA_URL: kafka:29092
+    ports:
+      - 8081:9091
+    networks:
+      - microservices_network
+  product-db:
+    container_name: product-db
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: product_db
+    ports:
+      - 8001:3306
+    networks:
+      - microservices_network
+
+networks:
+  microservices_network:
+    name: microservices_network
