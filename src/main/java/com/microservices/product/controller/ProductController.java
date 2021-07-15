@@ -27,7 +27,7 @@ public class ProductController {
         return ResponseEntity.ok(productEntities);
     }
 
-    @GetMapping("/add-product")
+    @PostMapping("/add-product")
     public ResponseEntity<?> publishProduct(@RequestBody ProductDto productDto){
         StatusMessageDto result = new StatusMessageDto<>();
         try{
@@ -63,4 +63,11 @@ public class ProductController {
             return ResponseEntity.badRequest().body(result);
         }
     }
+
+    @GetMapping("/get-product/{id}")
+    public ResponseEntity<?> getById(@PathVariable Integer id){
+        ProductEntity productEntity = productRepository.findByProductId(id);
+        return ResponseEntity.ok(productEntity);
+    }
+
 }
