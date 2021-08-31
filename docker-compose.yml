@@ -16,12 +16,12 @@ services:
       DB_PASSWORD: password
       KAFKA_URL: kafka:29092
     ports:
-      - 8081:9091
+      - 7071:9091
     networks:
       - microservices_network
   product-db:
     container_name: product-db
-    image: mysql:5.7
+    image: mysql:8.0.25
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: password
